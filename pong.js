@@ -1,4 +1,4 @@
- + "/" + paddleColorsList.length//Canvas settings
+//Canvas settings
 var cvs = document.getElementById("acanvas");
 var painter = cvs.getContext("2d");
 
