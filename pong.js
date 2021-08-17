@@ -146,8 +146,6 @@ for(let c = 0; c < brickCollumn; c++){
         if ((xball >= xpad) && (xball - ballRadius <= xpad + padLen) && (yball + ballRadius >= ypad) && (yball <= ypad )){
             myball = -Math.abs(myball);
 
-            setTimeout(ScoringDisplay, 200);
-
             ballLevel++;
 
             if (PaddleMaxed){
