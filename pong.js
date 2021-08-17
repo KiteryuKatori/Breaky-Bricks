@@ -1,4 +1,4 @@
-//Canvas settings
+ + "/" + paddleColorsList.length//Canvas settings
 var cvs = document.getElementById("acanvas");
 var painter = cvs.getContext("2d");
 
@@ -176,8 +176,8 @@ for(let c = 0; c < brickCollumn; c++){
                 clearInterval(interval);
             }
 
-            document.getElementById("ballstat").innerHTML = "Ball Level: " + ballLevel + "/" + ballColorsList;
-            document.getElementById("padstat").innerHTML = "Paddle Level: " + paddleLevel + "/" + ballColorsList;
+            document.getElementById("ballstat").innerHTML = "Ball Level: " + ballLevel + "/" + ballColorsList.length;
+            document.getElementById("padstat").innerHTML = "Paddle Level: " + paddleLevel + "/" + ballColorsList.length;
 
         }
         // Bottom
