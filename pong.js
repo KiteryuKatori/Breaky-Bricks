@@ -108,8 +108,8 @@ for(let c = 0; c < brickCollumn; c++){
                 mxball = -mxball;
             }    else if (yball <= ballRadius) {//Roof
                     myball = -myball;
-            }    else if (yball >= cvs.height - ballRadius + 1){//Floor
-                myball = -myball;}
+            }    /*else if (yball >= cvs.height - ballRadius + 1){//Floor
+                myball = -myball;}*/
             //Losing when missed the ball(Stored in Storing.js)
                 else if (yball >= cvs.height - ballRadius + 1){
                 alert("You've missed the ball. Let's do it again! \nYour total score is: " + Score + ". That's impressive =)))");
@@ -173,13 +173,13 @@ for(let c = 0; c < brickCollumn; c++){
             console.log("                                       ");
             
             if (brickbrokencount == brickRow * brickCollumn){
-                alert("You've won! Hoorayyyyyy! \n Your total score is: " + Score + ". Please send the score to me.");
+                alert("You've won! Hoorayyyyyy!\nYour total score is: " + Score + ". Please send the score to me.");
                 document.location.reload();
                 clearInterval(interval);
             }
 
-            document.getElementById("ballstat").innerHTML = "Ball Level: " + ballLevel;
-            document.getElementById("padstat").innerHTML = "Paddle Level: " + paddleLevel;
+            document.getElementById("ballstat").innerHTML = "Ball Level: " + ballLevel + "/" + ballColorsList;
+            document.getElementById("padstat").innerHTML = "Paddle Level: " + paddleLevel + "/" + ballColorsList;
 
         }
         // Bottom
@@ -237,18 +237,10 @@ for(let c = 0; c < brickCollumn; c++){
         }
     }
 
-    function ScoringDisplay(){
-        painter.font = "30px FS Nokio Regular";
-        painter.fillStyle = "#F96338";
-        painter.fillText("Score: "+ Score, 100, 250);
-    }
-
     function drawScore(){
         painter.font = "30px FS Nokio Regular";
         painter.fillStyle = "#F96338";
         painter.fillText("Score: "+ Score, 20, 20);
-        painter.fillStyle = "#FFE2FE";
-        painter.fillText("Score: "+ Score, xball, yball);
     }
     
     
