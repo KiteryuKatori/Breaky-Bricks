@@ -1,0 +1,17 @@
+* {padding: 0; margin: 0;}
+
+canvas { 
+    background: #f3fbf9; 
+    display: block;
+    margin: 0 auto;
+}
+
+table, tr, th, td{
+    border-collapse: collapse;
+    width: 250px;
+    border: 1px solid black;
+}
+
+/* tr = table row
+th = table header
+td = table data
