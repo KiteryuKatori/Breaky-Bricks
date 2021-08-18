@@ -313,4 +313,4 @@ function KeyReleasedHandler(k) {
 
 
 var interval = setInterval(draw, GameSpeed);
-//Execute the "draw" function every 10 miliseconds
+//Meh
