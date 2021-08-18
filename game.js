@@ -33,11 +33,9 @@ var xball = RandomFromTo(200, 400);
 var yball = RandomFromTo(300, 400);
 var ixball = xball;
 var iyball = yball;
-document.getElementById("ixb").innerHTML = ixball;
-document.getElementById("iyb").innerHTML = iyball;
 var mxball = InitialBallDirection();
 var myball = -3;
-var ballColorsList = ["#FAC897", "#FA9579", "#F58944", "#F95038"];
+var ballColorsList = ["#FAC897", "#FA9579", "#F58944"];
 var ballLevel = 1;
 
 //Bricks Settings:
@@ -126,8 +124,8 @@ function InitialBallDirection(){//Ball will start going left or right in the beg
                 mxball = -mxball;
             }else if (yball <= ballRadius) {//Roof
                 myball = -myball;
-            }else if (yball >= cvs.height - ballRadius + 1){//Floor
-                myball = -myball;}
+            }/*else if (yball >= cvs.height - ballRadius + 1){//Floor
+                myball = -myball;}*/
             //Losing when missed the ball(Stored in Storing.js)
             else if (yball >= cvs.height - ballRadius + 1){
                 alert("You've missed the ball. Let's do it again! \nYour total score is: " + Score + ". That's impressive =)))");
@@ -255,15 +253,12 @@ function InitialBallDirection(){//Ball will start going left or right in the beg
         painter.font = "30px FS Nokio Regular";
         painter.fillStyle = "#F96338";
         painter.fillText("Score: "+ Score, 20, 30);
-        painter.beginPath();
-        painter.rect(200, 250, 200, 200);
-        painter.fillStyle = "#FFE2FE";
-        painter.fill();
-        painter.beginPath();
+    }
+    
+    function ScoreScored(){
+        painter.font = "36px FS Nokio Regular";
         painter.fillStyle = "#F96338";
-        painter.arc(ixball, iyball, ballRadius, 0, Math.PI*2, false);
-        painter.fill();
-        painter.closePath();
+        painter.fillText("+10", 200, 300);
     }
     
     
@@ -272,6 +267,7 @@ function InitialBallDirection(){//Ball will start going left or right in the beg
 function draw(){
     painter.clearRect(0, 0, cvs.width, cvs.height);
     drawScore();
+    ScoreScored()
     BricksCollision();
     BnPCollision();
     drawBall();
