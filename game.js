@@ -24,7 +24,7 @@ var xpad = cvs.width/2 - padLen/2;
 console.log("xpad = " + xpad);
 var ypad = cvs.height - padHei*2;
 console.log("ypad = " + ypad);;
-var paddleColorsList = ["#001242", "#607196", "#BABFD1", "#C6D2D2"];
+var paddleColorsList = ["#001242", "#607196", "#BABFD1"];
 var paddleLevel = 1;
 
 //Ball Settings:
@@ -35,7 +35,7 @@ var ixball = xball;
 var iyball = yball;
 var mxball = InitialBallDirection();
 var myball = -3;
-var ballColorsList = ["#FAC897", "#FA9579", "#F58944"];
+var ballColorsList = ["#FAC897", "#FA9579", "#F58944", "#F95038"];
 var ballLevel = 1;
 
 //Bricks Settings:
@@ -153,9 +153,6 @@ function InitialBallDirection(){//Ball will start going left or right in the beg
         }
     }
 
-    console.log("BallList lenght: " + ballColorsList.length)
-    console.log("PaddleList Length: " + paddleColorsList.length)
-    console.log("Total bricks: " + (brickCollumn*brickCollumn))
     //Ball collide with Paddle
     function BnPCollision(){
         //TOP
@@ -180,11 +177,6 @@ function InitialBallDirection(){//Ball will start going left or right in the beg
                 }
             }
 
-            console.log("Ball Level(after hit): " + ballLevel);
-            console.log("Paddle Level(after hit): " + paddleLevel);
-            console.log("Brick(s) left: " + ((brickCollumn*brickCollumn) - brickbrokencount))
-            console.log("                                       ");
-            
             if (brickbrokencount == brickRow * brickCollumn){
                 alert("You've won! Hoorayyyyyy!\nYour total score is: " + Score + ". Please send the score to me.");
                 document.location.reload();
@@ -192,7 +184,7 @@ function InitialBallDirection(){//Ball will start going left or right in the beg
             }
 
             document.getElementById("ballstat").innerHTML = ballLevel + "/" + ballColorsList.length;
-            document.getElementById("padstat").innerHTML = paddleLevel + "/" + ballColorsList.length;
+            document.getElementById("padstat").innerHTML = paddleLevel + "/" + paddleColorsList.length;
         }
         // Bottom
         else if ((xball >= xpad) && (xball - ballRadius <= xpad + padLen) && (yball - ballRadius <= ypad + padHei) && (yball >= ypad + padHei)){
@@ -256,9 +248,7 @@ function InitialBallDirection(){//Ball will start going left or right in the beg
     }
     
     function ScoreScored(){
-        painter.font = "36px FS Nokio Regular";
-        painter.fillStyle = "#F96338";
-        painter.fillText("+10", 200, 300);
+        return true;
     }
     
     
