@@ -201,7 +201,7 @@ function InitialBallDirection(){//Ball will start going left or right in the beg
                 ballLevel = 1;
                 paddleLevel++;
 
-                if (paddleLevel == paddleColorsList.length){
+                if ((paddleLevel == paddleColorsList.length) && (ballLevel == ballColorsList.length)){
                     Score += 250;
                     PaddleMaxed = true;
                     document.getElementById("padstat").innerHTML = "Paddle Level Max(4)";
