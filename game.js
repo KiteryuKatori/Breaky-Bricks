@@ -97,8 +97,8 @@ function InitialBallDirection(){//Ball will start going left or right in the beg
                 mxball = -mxball;
             }else if (yball <= ballRadius) {//Roof
                 myball = -myball;
-            }else if (yball >= cvs.height - ballRadius + 1){//Hitting the Floor
-                myball = -myball;}
+            }/*else if (yball >= cvs.height - ballRadius + 1){//Hitting the Floor
+                myball = -myball;}*/
             //Losing when missed the ball(Stored in Storing.js)
             else if (yball >= cvs.height - ballRadius + 1){
                 alert("You've missed the ball. Let's do it again! \nYour total score is: " + Score + ". That's impressive =)))");
