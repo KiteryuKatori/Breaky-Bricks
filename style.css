@@ -3,7 +3,8 @@
 canvas { 
     background: #f3fbf9; 
     display: block;
-    margin: 0 auto;
+    margin: auto;
+    border: 2px solid black;
 }
 
 table, tr, th, td{
