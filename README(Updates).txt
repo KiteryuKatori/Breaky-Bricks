@@ -8,4 +8,10 @@ Make a new status table for easier tracking*/
 #Update v0.5.5 19/8/21
 /*Introducing DEADZONE(Basically, when the ball went into the zone, 90% you will lose)
 Mouse control added
-*/
+Fixed paddle Level bugs*/
+
+#Update v0.5.7 22/8/2021
+/* Creating a menu?
+Uploaded an Interactive Playground(for me to learn animating the buttons and showing off)
+Learning how to link pages and arranging files?
+Making progress with CSS*/

@@ -200,12 +200,12 @@ function InitialBallDirection(){//Ball will start going left or right in the beg
             if (ballLevel > ballColorsList.length){
                 ballLevel = 1;
                 paddleLevel++;
-
-                if ((paddleLevel == paddleColorsList.length) && (ballLevel == ballColorsList.length)){
-                    Score += 250;
-                    PaddleMaxed = true;
-                    document.getElementById("padstat").innerHTML = "Paddle Level Max(4)";
-                }
+            }
+            
+            if ((paddleLevel == paddleColorsList.length) && (ballLevel == ballColorsList.length)){
+                Score += 250;
+                PaddleMaxed = true;
+                document.getElementById("padstat").innerHTML = "Paddle Level Max(4)";
             }
 
             if (brickbrokencount == brickRow * brickCollumn){
@@ -275,7 +275,7 @@ function InitialBallDirection(){//Ball will start going left or right in the beg
 
 document.addEventListener("keydown", KeyPressedHandler, false);
 document.addEventListener("keyup", KeyReleasedHandler, false);
-document.addEventListener("mousemove", mouseMovingHandler, false);
+document.addEventListener("mousemove", MouseMovingHandler, false);
 
 function KeyPressedHandler(k) {
     if (k.key == "ArrowRight" || k.key == "d"){
@@ -308,7 +308,7 @@ function KeyReleasedHandler(k) {
     }
 }
 
-function mouseMovingHandler(m) {
+function MouseMovingHandler(m) {
     //Method 1
     var relativeX = m.clientX - cvs.offsetLeft;
     

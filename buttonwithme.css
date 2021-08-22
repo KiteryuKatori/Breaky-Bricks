@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=Klee+One:wght@600&family=Nunito:wght@200&family=Poiret+One&display=swap');
+
+*{
+    padding:0;
+    margin:0;
+}
+
+button:focus{
+    outline: none !important;
+}
+
+/*GLOBAL BUTTON AND HEADERS SETTINGS*/
+.buttondemo{
+    width: 150px;
+    height: 75px;
+    padding: 10px;
+    margin: 2px;
+    
+}
+.Header {
+    font-family: Nunito;
+    font-weight: bold;
+    font-size: 50px;
+    
+}
+
+
+/*Upper half*/
+.row {
+    font-family: 'Poiret One';
+    
+}
+
+    /*Delphinium*/
+    .innercol.left {
+        background-color: #E5ECF4 /**/;
+        text-align: center;
+        padding-bottom: 50px;
+        
+    }
+    .Header.one {color: #8c85dd;}
+    .Delphinium {
+        border: 2px solid #C3BEF7;
+        color: #C3BEF7;
+        font-size: 30px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+    .Delphinium:hover {
+        color: #ffffff;
+    }
+
+    .Delphinium.one:hover {
+        background-color: #C3BEF7;
+    }
+
+    /*.Delphinium.two, .three {
+        box-shadow: inset 0 0 0 0 #C3BEF7;
+        transition: ease-out 0.35s;
+    }*/
+    .Delphinium.two:hover {
+        box-shadow: inset 150px 0 0 0 #C3BEF7;
+    }
+    .Delphinium.three:hover {
+        box-shadow: inset 0 75px 0 0 #C3BEF7;
+    }
+
+    /* Delphinium four*/
+    .Delphinium.four {
+        transition: ease-out 0.5s;
+    }
+    .Delphinium.four:hover {
+        color: #ffffff;
+        box-shadow: inset 0 0 75px 75px #C3BEF7;
+    }
+
+    /*Bugs here*/
+    .Delphinium.one:active, .Delphinium.two:active, .three:active, .four:active {
+        background-color: #8A4FFF;
+    }
+
+/*IM HERE TO HELP THE GUY FIND WHERE THE NEXT SECTION IS
+IM BEING HELPFUL. YOU BETTER SAY THANK YOU TO ME, FUTURE ME*/
+
+
+    /*Amaryllis*/
+    .Header.two {color: #da2f26}
+    .row.upper .innercol.right {
+        background-color: #fdcecc /**/;
+        text-align: center;
+        padding-bottom: 50px;
+    }
+    .Amaryllis {
+        border: 2px solid #f76f68;
+        color: #f76f68;
+        font-size: 30px;
+        font-weight: bold;
+        transition: 0.2s;
+    }
+    .Amaryllis:hover {
+        color: #ffffff;
+        background-color: #f76f68;
+    }
+    .Amaryllis:active {
+        background-color: #ee5149;
+        border-color: #ee5149;
+    }
+
+
+/*IM HERE TO HELP THE GUY FIND WHERE THE NEXT SECTION IS
+IM BEING HELPFUL. YOU BETTER SAY THANK YOU TO ME, FUTURE ME*/
+/*I RECEIVED, THANK YOU PAST ME, I'LL PASS THIS FOR OUR FUTURE US TOO*/
+
+    /*Nasturtium*/
+    .Header.three {color: #ff9735}
+    .row.lower .innercol.left {
+        background-color: #ffe1b9 /**/;
+        text-align: center;
+        padding-bottom: 50px;
+    }
+    .Nasturtium {
+        border: 2px solid #ffbc64;
+        color: #ffbc64;
+        font-size: 30px;
+        font-weight: bold;
+        transition: 0.2s;
+    }
+    .Nasturtium:hover {
+        color: #ffffff;
+        background-color:#ffbc64;
+    }
+    .Nasturtium:active {
+        background-color:  #faa72a;
+        border-color: #faa72a;
+    }
+    
+
+/*IM HERE TO HELP THE GUY FIND WHERE THE NEXT SECTION IS
+IM BEING HELPFUL. YOU BETTER SAY THANK YOU TO ME, FUTURE ME*/
+/*I RECEIVED, THANK YOU PAST ME, I'LL PASS THIS FOR OUR FUTURE US TOO*/
+/*THANK YOU GUYS, U GUYS HELPED ME ALOT, THANKS.*/
+
+/*Corsican Hellebore*/
+.Header.four {color: #4bf353}
+.row.lower .innercol.right {
+    background-color: #bfffc2 /**/;
+    text-align: center;
+    padding-bottom: 50px;
+}
+.CorsicanHellebore {
+    border: 2px solid #6cfa73;
+    color: #6cfa73;
+    font-size: 30px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+.CorsicanHellebore:hover {
+    color:#ffffff;
+    background-color: #6cfa73;
+}
+.CorsicanHellebore:active {
+    background-color: #49cf4f;
+    border-color: #49cf4f;
+}
+
+
+
+
+
+
+
+
+.button1 {
+    width: 150px;
+    height: 75px;
+    padding: 25px;
+    border: 2px solid #F25C54;
+    color: #F25C54;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: inset 0 0 0 0 #F25C54;
+    transition: ease-out 0.3s;
+}
+
+.button1:hover {
+    box-shadow: inset 150px 0 0 0 #F25C54;
+    color: white;
+    z-index: 1;
+}
+
+.button2 {
+    width: 150px;
+    height: 75px;
+    padding: 20px;
+    border: 2px solid #F25C54;
+    color: #F25C54;
+    border-radius: 10px;
+    text-align: center;
+    transition: ease-out 0.4s;
+    position: relative;
+}
+
+.button2:hover {
+    color:white;
+    font-size:125%;
+    padding: 10px;
+}
+
+.button2:after{
+    transition: ease 0.5s ;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    right: 50%;
+    bottom: 0;
+    opacity: 0;
+    content: "";
+    background-color: #F25C54;
+}
+
+.button2:hover:after {
+    transition: ease 0.4s;
+    left: 0;
+    right: 0;
+    opacity: 1;
+    z-index: -1;
+}
