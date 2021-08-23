@@ -15,3 +15,9 @@ Fixed paddle Level bugs*/
 Uploaded an Interactive Playground(for me to learn animating the buttons and showing off)
 Learning how to link pages and arranging files?
 Making progress with CSS*/
+
+#Update v0.5.7 22/8/2021
+/* Still not touching the menu
+Removed button Playground from this repo, instead, create another repo and link this one to that one
+Created a comforting system for those who lost the game =))))
+(Many of my friends complain that "=)))" feels so rude)*/
