@@ -101,7 +101,7 @@ function InitialBallDirection(){//Ball will start going left or right in the beg
                 myball = -myball;}*/
             //Losing when missed the ball(Stored in Storing.js)
             else if (yball >= cvs.height - ballRadius + 1){
-                alert("You've missed the ball. Let's do it again! \nYour total score is: " + Score + ". That's impressive =)))");
+                losing();
                 document.location.reload();
                 clearInterval(interval);
             }
@@ -267,6 +267,21 @@ function InitialBallDirection(){//Ball will start going left or right in the beg
     
     function ScoreScored(){
         return true;
+    }
+
+    function losing() {
+        var comforting = '';
+        if ((Score >= 10) && (Score < 50)){
+            comforting = "\nUnlucky, it's must be your first time playing this game. Let's try that again!"}    
+        else if((Score >= 50) && (Score < 200)){
+                comforting = "\nAw... missed. You did a good job anyway. Let's try that again!"}    
+        else if((Score >= 200) && (Score < 600)){
+            comforting = "\nWhat a pity! You've came this far. Might consider give it another try, will ya?"}
+        else if((Score >= 600) && (Score < 900)){
+            comforting = "\nOh no!!! You've missed. Just a couple more bricks and you'll win... Let's get 'em next time!"}
+        else if(Score >= 900){
+            comforting = "\nOh ho ho! Almost break the record, so careles... Wanna reach the maximum score again? Bang the retry button!"}
+        alert("Your total score is: " + Score + comforting);  
     }
  
     
