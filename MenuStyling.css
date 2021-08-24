@@ -3,11 +3,16 @@
 * {
     padding: 0; margin: 0;
     font-family: "Klee One";
+    outline: var(--main-bg-color) !important;
 }
 
 :root {
     --main-color: #ffb78e;
     --main-bg-color: #ffead0;
+}
+
+.btn:focus, a:focus{
+    outline: var(--main-bg-color) !important;
 }
 
 body {
@@ -34,9 +39,10 @@ h2{
     border: 3px solid var(--main-color);
     border-radius: 20px;
     height: 75px;
-
+    outline: none;
     font-size: 150%;
     color: var(--main-color);
+    outline: var(--main-bg-color) !important;
 }
 
 .btn.first:hover, .btn.second:hover {
@@ -45,6 +51,7 @@ h2{
     transition: 0.01s;
     background-color: #FF7F50;
     border-color: #FF7F50;
+    outline: var(--main-bg-color) !important;
 }
 
 /*FIRST BUTTON*/
@@ -52,6 +59,7 @@ h2{
     margin-top: 0%;
     width: 200px;
     transition: 0.6s;
+    outline: var(--main-bg-color) !important;
 }
 .btn.first:before {   
     transition: 0.5s all ease;
@@ -63,16 +71,19 @@ h2{
     bottom: 0%;
     content:"";
     background-color: var(--main-color);
+    outline: var(--main-bg-color) !important;
 }
 .btn.first:hover:before {
     transition: 0.5s all ease;
     left: 0;
     right: 0;
     z-index: -1;
+    outline: var(--main-bg-color) !important;
 }
 .btn.first:active:before {
     transition: 0.01s;
     background-color: #FF7F50;
+    outline: var(--main-bg-color) !important;
 }
 
 
@@ -85,6 +96,7 @@ h2{
     z-index: 1;
     background-color: var(--main-color);
     transition: 0.8s;
+    outline: var(--main-bg-color) !important;
 }
 
 .btn.second:before {   
@@ -99,6 +111,7 @@ h2{
     content:"";
     background-color: var(--main-bg-color);
     z-index:-1;
+    outline: var(--main-bg-color) !important;
 }
 
 .btn.second:hover:before {
@@ -107,4 +120,5 @@ h2{
     right: 51%;
     opacity: 1;
     z-index: -1;
+    outline: var(--main-bg-color) !important;
 }
