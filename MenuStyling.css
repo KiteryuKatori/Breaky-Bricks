@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Klee+One:wght@600&family=Nunito:wght@200&family=Poiret+One&display=swap');
+
+* {
+    padding: 0; margin: 0;
+    font-family: "Klee One";
+}
+
+:root {
+    --main-color: #ffb78e;
+    --main-bg-color: #ffead0;
+}
+
+body {
+    background-color: var(--main-bg-color);
+}
+
+.container {
+    width: 30%;
+    height: 300px;
+    margin-top: 10%;
+    text-align: center;
+    border: 5px solid var(--main-color);
+    border-radius: 10px;
+    position: relative;
+}
+h2{
+    padding: 10px;
+    margin-bottom: 20px;
+    color: #FF7F50;
+}
+.btn {
+    padding-top: 4%;
+    position: relative;
+    border: 3px solid var(--main-color);
+    border-radius: 20px;
+    height: 75px;
+
+    font-size: 150%;
+    color: var(--main-color);
+}
+
+.btn.first:hover, .btn.second:hover {
+    color: #fff;}
+.btn.first:active, .btn.second:active {
+    transition: 0.01s;
+    background-color: #FF7F50;
+    border-color: #FF7F50;
+}
+
+/*FIRST BUTTON*/
+.btn.first {
+    margin-top: 0%;
+    width: 200px;
+    transition: 0.6s;
+}
+.btn.first:before {   
+    transition: 0.5s all ease;
+    position: absolute;
+    border-radius: 15px;
+    top: 0%;
+    left: 50%;
+    right: 50%;
+    bottom: 0%;
+    content:"";
+    background-color: var(--main-color);
+}
+.btn.first:hover:before {
+    transition: 0.5s all ease;
+    left: 0;
+    right: 0;
+    z-index: -1;
+}
+.btn.first:active:before {
+    transition: 0.01s;
+    background-color: #FF7F50;
+}
+
+
+
+
+/*SECOND BUTTON*/
+.btn.second {
+    margin-top: 0%;
+    width: 300px;
+    z-index: 1;
+    background-color: var(--main-color);
+    transition: 0.8s;
+}
+
+.btn.second:before {   
+    transition: 0.6s all ease;
+    position: absolute;
+    border-radius: 18px;
+    top: 0;
+    left: 0%;
+    right: 0%;
+    bottom: 0;
+    opacity: 1;
+    content:"";
+    background-color: var(--main-bg-color);
+    z-index:-1;
+}
+
+.btn.second:hover:before {
+    transition: 0.6s all ease;
+    left: 51%;
+    right: 51%;
+    opacity: 1;
+    z-index: -1;
+}

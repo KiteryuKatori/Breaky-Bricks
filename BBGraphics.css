@@ -10,7 +10,7 @@ canvas {
 table, tr, th, td{
     border-collapse: collapse;
     width: 250px;
-    border: 1px solid rgb(12, 12, 11);
+    border: 1px solid black;
 }
 
 /*tr = table row

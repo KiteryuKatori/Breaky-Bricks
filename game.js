@@ -97,21 +97,17 @@ function InitialBallDirection(){//Ball will start going left or right in the beg
                 mxball = -mxball;
             }else if (yball <= ballRadius) {//Roof
                 myball = -myball;
-            }/*else if (yball >= cvs.height - ballRadius + 1){//Hitting the Floor
-                myball = -myball;}*/
+            }else if (yball >= cvs.height - ballRadius + 1){//Hitting the Floor
+                myball = -myball;}
             //Losing when missed the ball(Stored in Storing.js)
             else if (yball >= cvs.height - ballRadius + 1){
-                losing();
+                alert("You've missed the ball. Let's do it again! \nYour total score is: " + Score + ". That's impressive =)))");
                 document.location.reload();
                 clearInterval(interval);
             }
             //Ball fallen into dead zone
-            else if (yball >= ypad + padHei/2){
-                ballInDeadZone = true;
-            }
-            else{
-                ballInDeadZone = false;
-            }
+            else if (yball >= ypad + padHei/2){ballInDeadZone = true;}
+            else{ballInDeadZone = false;}
     }
     function drawPad() {
         painter.beginPath();
@@ -122,28 +118,22 @@ function InitialBallDirection(){//Ball will start going left or right in the beg
 
         //Moving the Paddle
         if(RightPressed){
-            xpad += paddleSpeed;
-        }else if(LeftPressed){
-            xpad -= paddleSpeed;
-        }else if(UpPressed){
-            ypad -= paddleSpeed;
-        }else if(DownPressed){
-            ypad += paddleSpeed;
-        }
-
+            xpad += paddleSpeed;}
+        else if(LeftPressed){
+            xpad -= paddleSpeed;}
+        else if(UpPressed){
+            ypad -= paddleSpeed;}
+        else if(DownPressed){
+            ypad += paddleSpeed;}
         //Paddle's moving Logic (Collide with Wall)
         if(xpad + padLen >= cvs.width){
-            xpad = cvs.width - padLen;
-        } 
+            xpad = cvs.width - padLen;} 
         else if(xpad <= 0){
-            xpad = 0;
-        } 
+            xpad = 0;} 
         else if(ypad >= cvs.height-padHei){
-            ypad = cvs.height - padHei;
-        } 
+            ypad = cvs.height - padHei;} 
         else if(ypad <= 0){
-            ypad = 0;
-        }
+            ypad = 0;}
     }
     function drawBricks() {
         for(let c = 0; c < brickCollumn; c++){
@@ -196,24 +186,20 @@ function InitialBallDirection(){//Ball will start going left or right in the beg
                 paddleLevel = 1;
                 PaddleMaxed = false;
             }
-
             if (ballLevel > ballColorsList.length){
                 ballLevel = 1;
                 paddleLevel++;
             }
-            
             if ((paddleLevel == paddleColorsList.length) && (ballLevel == ballColorsList.length)){
                 Score += 250;
                 PaddleMaxed = true;
                 document.getElementById("padstat").innerHTML = "Paddle Level Max(4)";
             }
-
             if (brickbrokencount == brickRow * brickCollumn){
                 alert("You've won! Hoorayyyyyy!\nYour total score is: " + Score + ". Please send the score to me.");
                 document.location.reload();
                 clearInterval(interval);
             }
-
             document.getElementById("ballstat").innerHTML = ballLevel + "/" + ballColorsList.length;
             document.getElementById("padstat").innerHTML = paddleLevel + "/" + paddleColorsList.length;
         }
@@ -267,21 +253,6 @@ function InitialBallDirection(){//Ball will start going left or right in the beg
     
     function ScoreScored(){
         return true;
-    }
-
-    function losing() {
-        var comforting = '';
-        if ((Score >= 10) && (Score < 50)){
-            comforting = "\nUnlucky, it's must be your first time playing this game. Let's try that again!"}    
-        else if((Score >= 50) && (Score < 200)){
-                comforting = "\nAw... missed. You did a good job anyway. Let's try that again!"}    
-        else if((Score >= 200) && (Score < 600)){
-            comforting = "\nWhat a pity! You've came this far. Might consider give it another try, will ya?"}
-        else if((Score >= 600) && (Score < 900)){
-            comforting = "\nOh no!!! You've missed. Just a couple more bricks and you'll win... Let's get 'em next time!"}
-        else if(Score >= 900){
-            comforting = "\nOh ho ho! Almost break the record, so careles... Wanna reach the maximum score again? Bang the retry button!"}
-        alert("Your total score is: " + Score + comforting);  
     }
  
     
@@ -347,3 +318,13 @@ function draw(){
     document.getElementById("score").innerHTML = Score;
 }
 //Meh
+
+
+
+/*Bugs
+-Bóng xuyên qua paddle khi paddle di chuyển lên và bóng đang hướng xuống(95% sẽ gặp)
+-Bóng xuyên qua paddle khi va chạm 45deg so với paddle(30%)
+-Bóng bị dính vào 1 trong 2 bên tường khi bị paddle đẩy vào(30%, xui lắm mới bị)
+-Bóng bị dính vào trần, di chuyển đến khi chạm tường mới văng ra được (10%, xui lắm mới bị)
+-Nếu biết cách exploit khả năng paddle đi xuyên được qua bricks và cơ chế tính điểm bonus bằng cách va chạm bóng nhiều lần với paddle sẽ có thể lấy được 8-10k điểm đến khi bạn mỏi tay
+*/
