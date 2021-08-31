@@ -1,275 +1,198 @@
-//Canvas settings
-var cvs = document.getElementById("acanvas");
-var painter = cvs.getContext("2d");
-
-//Game settings:
-var GameSpeed = 10;
-var Score = 0;
-var interval = setInterval(draw, GameSpeed);
-
-//Responsive
-var RightPressed = false;
-var LeftPressed = false;
-var UpPressed = false;
-var DownPressed = false;
-
-//Status
-var BallCombo = true;
-var PaddleMaxed = null;
-var brickbrokencount = 0;
-var ballInDeadZone = false;
-var counting = 0;
-
-//Paddle Settings:
-var padLen = 80;
-var padHei = 20;
-var xpad = cvs.width/2 - padLen/2;
-var ypad = cvs.height - padHei*2;
-var paddleColorsList = ["#001242", "#607196", "#BABFD1"];
-var paddleLevel = 1;
-var paddleSpeed = 4;
-
-//Ball Settings:
-var ballRadius = 10;
-var xball = RandomFromTo(200, 400);
-var yball = RandomFromTo(300, 400);
-var mxball = InitialBallDirection();
-var myball = -2;
-var ballColorsList = ["#FAC897", "#FA9579", "#F58944", "#F95038"];
-var ballLevel = 1;
-
-//Bricks Settings:
-var brickRow = 4;
-var brickCollumn = 6;
-var brickLen = 80;
-var brickHei = 25;
-var brickOffsetTop = 40;
-var brickOffsetLeft = 30;//offset from walls
-var brickPadding = 15;//Keep the bricks from touching each other
-var brickColors = [];
-
-
-console.log("Initial text x:" + (xpad-padHei));
-console.log("Initial text y:" + (ypad-padHei));
-console.log("Initial xpad:" + xpad);
-
-
 //Adding Bricks
 var bricks = [];
 for(let c = 0; c < brickCollumn; c++){
     bricks[c] = [];
+    hitpoints = RandomFromMinToMax(1, brickColorsList.length);
     for(let r = 0; r < brickRow; r++){
-        bricks[c][r] = {x: 0, y: 0, hp: 1 /*Hit Points of the Brick -> 0 means disappear*/};
+        bricks[c][r] = {x: 0, y: 0, hp: hitpoints /*Hit Points of the Brick -> 0 means disappear*/};
     }
 }
 
-//Others
-function RandomFromTo(min, max){
-    return Math.floor(Math.random()*(max-min)) + min;
-}
-
-function InitialBallDirection(){//Ball will start going left or right in the beginning.
-    let a = Math.round(Math.random());
-    if (a == 0){//Ball turn Right
-        return 2;
-    }else if (a == 1){//Ball turn Right
-        return -2;
-    }
-}
-
-//Drawing things
-
-    function drawBall() {
-        //Draw Ball
-        painter.beginPath();
-        painter.arc(xball, yball, ballRadius, 0, Math.PI*2, false);
-        painter.fillStyle = ballColorsList[ballLevel-1];
-        painter.fill();
-        painter.closePath();
-        
-        //Moving the Ball
-        xball += mxball;
-        yball += myball;
-        
-        //Ball's moving logic
-            //Collide with wall
-            if ((xball >= cvs.width - ballRadius)||(xball <= ballRadius)){//Sides
-                mxball = -mxball;
-            }else if (yball <= ballRadius) {//Roof
-                myball = -myball;
-            }/*else if (yball >= cvs.height - ballRadius + 1){//Hitting the Floor
-                myball = -myball;}*/
-            //Losing when missed the ball(Stored in Storing.js)
-            else if (yball >= cvs.height - ballRadius + 1){
-                losing();
-                document.location.reload();
-                clearInterval(interval);
-            }
-            //Ball fallen into dead zone
-            else if (yball >= ypad + padHei/2){ballInDeadZone = true;}
-            else{ballInDeadZone = false;}
-    }
-    function drawPad() {
-        painter.beginPath();
-        painter.rect(xpad, ypad, padLen, padHei);
-        painter.fillStyle = paddleColorsList[paddleLevel - 1];
-        painter.fill();
-        painter.closePath();
-
-        //Moving the Paddle
-        if(RightPressed){
-            xpad += paddleSpeed;}
-        else if(LeftPressed){
-            xpad -= paddleSpeed;}
-        else if(UpPressed){
-            ypad -= paddleSpeed;}
-        else if(DownPressed){
-            ypad += paddleSpeed;}
-        //Paddle's moving Logic (Collide with Wall)
-        if(xpad + padLen >= cvs.width){
-            xpad = cvs.width - padLen;} 
-        else if(xpad <= 0){
-            xpad = 0;} 
-        else if(ypad >= cvs.height-padHei){
-            ypad = cvs.height - padHei;} 
-        else if(ypad <= 0){
-            ypad = 0;}
-    }
-    function drawBricks() {
-        for(let c = 0; c < brickCollumn; c++){
-            for(let r = 0; r < brickRow; r++){
-                if(bricks[c][r].hp > 0){
-                    var xbrick = (c*(brickLen + brickPadding)) + brickOffsetLeft;
-                    var ybrick = (r*(brickHei + brickPadding)) + brickOffsetTop;
-                    bricks[c][r].x = xbrick;
-                    bricks[c][r].y = ybrick;
-                    painter.beginPath();
-                    painter.rect(xbrick, ybrick, brickLen, brickHei);
-                    painter.fillStyle = "#56E39F";
-                    painter.fill();
-                    painter.closePath();
-                }
-            }
-        }
-    }
-
-    function drawScore(){
-        painter.font = "30px FS Nokio Regular";
-        painter.fillStyle = "#F96338";
-        painter.fillText("Score: "+ Score, 20, 30);
-    }  
-    function drawDeadZone(){
-        painter.beginPath();
-        painter.fillStyle = "#F9633866";
-        if (ballInDeadZone == true){
-            painter.fillStyle = "#E94F37";
-        }
-        painter.rect(0, ypad + padHei/2, cvs.width, cvs.height-ypad);
-        painter.fill();
-        painter.closePath();
-        if (ballInDeadZone == true){
-            painter.fillText("Ah, you're dead.", xpad-padHei, ypad-padHei);
-        }
-        
-    }
-
-
-    //Ball collide with Paddle
-    function BnPCollision(){
-        //TOP
-        if ((xball >= xpad) && (xball - ballRadius <= xpad + padLen) && (yball + ballRadius >= ypad) && (yball <= ypad )){
-            myball = -Math.abs(myball);
-
-            ballLevel++;
-
-            if (PaddleMaxed){
-                paddleLevel = 1;
-                PaddleMaxed = false;
-            }
-            if (ballLevel > ballColorsList.length){
-                ballLevel = 1;
-                paddleLevel++;
-            }
-            if ((paddleLevel == paddleColorsList.length) && (ballLevel == ballColorsList.length)){
-                Score += 250;
-                PaddleMaxed = true;
-                document.getElementById("padstat").innerHTML = "Paddle Level Max(4)";
-            }
-            if (brickbrokencount == brickRow * brickCollumn){
-                alert("You've won! Hoorayyyyyy!\nYour total score is: " + Score + ". Please send the score to me.");
-                document.location.reload();
-                clearInterval(interval);
-            }
-            document.getElementById("ballstat").innerHTML = ballLevel + "/" + ballColorsList.length;
-            document.getElementById("padstat").innerHTML = paddleLevel + "/" + paddleColorsList.length;
-        }
-        // Bottom
-        else if ((xball >= xpad) && (xball - ballRadius <= xpad + padLen) && (yball - ballRadius <= ypad + padHei) && (yball >= ypad + padHei)){
-            myball = Math.abs(myball);}
-        //Left
-        else if ((yball >= ypad) && (yball <= ypad + padHei) && (xball + ballRadius >= xpad) && (xball <= xpad)){
-            mxball = -Math.abs(mxball);}
-        //Right
-        else if ((yball >= ypad) && (yball <= ypad + padHei) && (xball - ballRadius <= xpad + padLen) && (xball >= xpad + padLen)){
-            mxball = Math.abs(mxball);}
-    }
-
-    //Ball collide with Bricks
-    function BnBCollision(){
-        //function to shorten the shits below
-        function BrickHit(){
-            brik.hp--;
-            Score += 10;
-            document.getElementById("brickstat").innerHTML = "Last hit Brick's Hitpoints(left):" + brik.hp;
-            if (brik.hp == 0){
-                brickbrokencount++;
-            }
-        }
-        for(var c = 0; c < brickCollumn; c++){
-            for(var r = 0; r < brickRow; r++){
-                var brik = bricks[c][r];
-                if (brik.hp >= 1){
-                    //Top
-                    if ((xball >= brik.x) && (xball - ballRadius <= brik.x + brickLen) && (yball + ballRadius >= brik.y) && (yball <= brik.y)){
-                        myball = -Math.abs(myball);
-                        BrickHit();}
-                    //Bottom
-                    else if ((xball >= brik.x) && (xball - ballRadius <= brik.x + brickLen) && (yball - ballRadius <= brik.y + brickHei) && (yball >= brik.y + brickHei)){
-                        myball = Math.abs(myball);
-                        BrickHit();}
-                    //Left
-                    else if ((yball >= brik.y) && (yball <= brik.y + brickHei) && (xball + ballRadius >= brik.x) && (xball <= brik.x)){
-                        mxball = -Math.abs(mxball);
-                        BrickHit();}
-                    //Right
-                    else if ((yball >= brik.y) && (yball <= brik.y + brickHei) && (xball - ballRadius <= brik.x + brickLen) && (xball >= brik.x + brickLen)){
-                        mxball = Math.abs(mxball);
-                        BrickHit();}
-
-                }    
-            }
-        }
-    }
+function drawBall() {
+    //Draw Ball
+    painter.beginPath();
+    painter.arc(ballX, ballY, ballRadius, 0, Math.PI*2, false);
+    painter.fillStyle = ballColorsList[ballLevel-1];
+    painter.fill();
+    painter.closePath();
     
-    function ScoreScored(){
-        return true;
-    }
+    //Moving the Ball
+    ballX += ballHorizontalMovement;
+    ballY += ballVerticalMovement;
     
-    function losing() {
-        var comforting = '';
-        if ((Score >= 10) && (Score < 50)){
-            comforting = "\nUnlucky, it's must be your first time playing this game. Let's try that again!"}    
-        else if((Score >= 50) && (Score < 200)){
-                comforting = "\nAw... missed. You did a good job anyway. Let's try that again!"}    
-        else if((Score >= 200) && (Score < 600)){
-            comforting = "\nWhat a pity! You've came this far. Might consider give it another try, will ya?"}
-        else if((Score >= 600) && (Score < 900)){
-            comforting = "\nOh no!!! You've missed. Just a couple more bricks and you'll win... Let's get 'em next time!"}
-        else if(Score >= 900){
-            comforting = "\nOh ho ho! Almost break the record, so careles... Wanna reach the maximum score again? Bang the retry button!"}
-        alert("Your total score is: " + Score + comforting);  
+    //Ball's moving logic
+        //Collide with wall
+        if ((ballX >= cvs.width - ballRadius)||(ballX <= ballRadius)){//Sides
+            ballHorizontalMovement = -ballHorizontalMovement;
+        }else if (ballY <= ballRadius) {//Roof
+            ballVerticalMovement = -ballVerticalMovement;
+        }else if (ballY >= cvs.height - ballRadius + 1){//Hitting the Floor
+            ballVerticalMovement = -ballVerticalMovement;}
+        //Losing when missed the ball(Stored in Storing.js)
+        else if (ballY >= cvs.height - ballRadius + 1){
+            losing();
+            document.location.reload();
+            clearInterval(interval);
+        }
+        //Ball fallen into dead zone
+        else if (ballY >= paddleY + padHeight/2){ballInDeadZone = true;}
+        else{ballInDeadZone = false;}
+}
+
+function drawPad() {
+    painter.beginPath();
+    painter.rect(paddleX, paddleY, padLength, padHeight);
+    painter.fillStyle = paddleColorsList[paddleLevel - 1];
+    painter.fill();
+    painter.closePath();
+
+    //Moving the Paddle
+    if(RightPressed){
+        paddleX += paddleSpeed;}
+    else if(LeftPressed){
+        paddleX -= paddleSpeed;}
+    else if(UpPressed){
+        paddleY -= paddleSpeed;}
+    else if(DownPressed){
+        paddleY += paddleSpeed;}
+
+    //Paddle's moving Logic (Collide with Wall)
+    if(paddleX + padLength >= cvs.width){
+        paddleX = cvs.width - padLength;} 
+    else if(paddleX <= 0){
+        paddleX = 0;} 
+    else if(paddleY + padHeight>= cvs.height){
+        paddleY = cvs.height - padHeight;} 
+    else if(paddleY <= 0){
+        paddleY = 0;}
+}
+
+function drawBricks() {
+    for(let c = 0; c < brickCollumn; c++){
+        for(let r = 0; r < brickRow; r++){
+            if(bricks[c][r].hp > 0){
+                var xbrick = (c*(brickLen + brickPadding)) + brickOffsetLeft;
+                var ybrick = (r*(brickHei + brickPadding)) + brickOffsetTop;
+                bricks[c][r].x = xbrick;
+                bricks[c][r].y = ybrick;
+                hitpointleft = bricks[c][r].hp;
+                painter.beginPath();
+                painter.rect(xbrick, ybrick, brickLen, brickHei);
+                painter.fillStyle = brickColorsList[hitpointleft-1];
+                painter.fill();
+                painter.closePath();
+            }
+        }
     }
- 
+}
+
+function drawScore(){
+    painter.font = "30px FS Nokio Regular";
+    painter.fillStyle = "#F96338";
+    painter.fillText("Score: "+ totalScore, 20, 30);
+}  
+function drawDeadZone(){
+    painter.beginPath();
+    painter.fillStyle = "#F9633866";
+    if (ballInDeadZone == true){
+        painter.fillStyle = "#E94F37";
+        painter.fillText("Ah, you're dead.", paddleX-padHeight, paddleY-padHeight);
+    }
+    painter.rect(0, paddleY + padHeight/2, cvs.width, cvs.height-paddleY);
+    painter.fill();
+    painter.closePath();
+}
+
+function BnPCollision(){
+    //TOP
+    if ((ballX >= paddleX) && (ballX - ballRadius <= paddleX + padLength) && (ballY + ballRadius >= paddleY) && (ballY <= paddleY )){
+        ballVerticalMovement = -Math.abs(ballVerticalMovement);
+
+        ballLevel++;
+
+        if (paddleLevelMaxed){
+            paddleLevel = 1;
+            paddleLevelMaxed = false;
+        }
+        if (ballLevel > ballColorsList.length){
+            ballLevel = 1;
+            paddleLevel++;
+        }
+        if ((paddleLevel == paddleColorsList.length) && (ballLevel == ballColorsList.length)){
+            totalScore += 250;
+            paddleLevelMaxed = true;
+            document.getElementById("padstat").innerHTML = "Paddle Level Max(4)";
+        }
+        if (brickbrokencount == brickRow * brickCollumn){
+            alert("You've won! Hoorayyyyyy!\nYour total score is: " + totalScore + ". Please send the score to me.");
+            document.location.reload();
+            clearInterval(interval);
+        }
+        document.getElementById("ballstat").innerHTML = ballLevel + "/" + ballColorsList.length;
+        document.getElementById("padstat").innerHTML = paddleLevel + "/" + paddleColorsList.length;
+    }
+    // Bottom
+    else if ((ballX >= paddleX) && (ballX - ballRadius <= paddleX + padLength) && (ballY - ballRadius <= paddleY + padHeight) && (ballY >= paddleY + padHeight)){
+        ballVerticalMovement = Math.abs(ballVerticalMovement);}
+    //Left
+    else if ((ballY >= paddleY) && (ballY <= paddleY + padHeight) && (ballX + ballRadius >= paddleX) && (ballX <= paddleX)){
+        ballHorizontalMovement = -Math.abs(ballHorizontalMovement);}
+    //Right
+    else if ((ballY >= paddleY) && (ballY <= paddleY + padHeight) && (ballX - ballRadius <= paddleX + padLength) && (ballX >= paddleX + padLength)){
+        ballHorizontalMovement = Math.abs(ballHorizontalMovement);}
+}
+
+function BnBCollision(){
+    //function to shorten the shits below
+    function BrickHit(){
+        brik.hp--;
+        totalScore += 10;
+        document.getElementById("brickstat").innerHTML = "Last hit Brick's Hitpoints(left):" + brik.hp;
+        if (brik.hp == 0){
+            brickbrokencount++;
+        }
+    }
+    for(var c = 0; c < brickCollumn; c++){
+        for(var r = 0; r < brickRow; r++){
+            var brik = bricks[c][r];
+            if (brik.hp >= 1){
+                //Top
+                if ((ballX >= brik.x) && (ballX - ballRadius <= brik.x + brickLen) && (ballY + ballRadius >= brik.y) && (ballY <= brik.y)){
+                    ballVerticalMovement = -Math.abs(ballVerticalMovement);
+                    BrickHit();}
+                //Bottom
+                else if ((ballX >= brik.x) && (ballX - ballRadius <= brik.x + brickLen) && (ballY - ballRadius <= brik.y + brickHei) && (ballY >= brik.y + brickHei)){
+                    ballVerticalMovement = Math.abs(ballVerticalMovement);
+                    BrickHit();}
+                //Left
+                else if ((ballY >= brik.y) && (ballY <= brik.y + brickHei) && (ballX + ballRadius >= brik.x) && (ballX <= brik.x)){
+                    ballHorizontalMovement = -Math.abs(ballHorizontalMovement);
+                    BrickHit();}
+                //Right
+                else if ((ballY >= brik.y) && (ballY <= brik.y + brickHei) && (ballX - ballRadius <= brik.x + brickLen) && (ballX >= brik.x + brickLen)){
+                    ballHorizontalMovement = Math.abs(ballHorizontalMovement);
+                    BrickHit();}
+
+            }    
+        }
+    }
+}
+
+function losing() {
+    var comforting = '';
+    if ((totalScore >= 10) && (totalScore < 50)){
+        comforting = "\nUnlucky, it's must be your first time playing this game. Let's try that again!"}    
+    else if((totalScore >= 50) && (totalScore < 200)){
+            comforting = "\nAw... missed. You did a good job anyway. Let's try that again!"}    
+    else if((totalScore >= 200) && (totalScore < 600)){
+        comforting = "\nWhat a pity! You've came this far. Might consider give it another try, will ya?"}
+    else if((totalScore >= 600) && (totalScore < 900)){
+        comforting = "\nOh no!!! You've missed. Just a couple more bricks and you'll win... Let's get 'em next time!"}
+    else if(totalScore >= 900){
+        comforting = "\nOh ho ho! Almost break the record, so careles... Wanna reach the maximum score again? Bang the retry button!"}
+    alert("Your total score is: " + totalScore + comforting);  
+}
+
 document.addEventListener("keydown", KeyPressedHandler, false);
 document.addEventListener("keyup", KeyReleasedHandler, false);
 document.addEventListener("mousemove", MouseMovingHandler, false);
@@ -310,33 +233,72 @@ function MouseMovingHandler(m) {
     var relativeX = m.clientX - cvs.offsetLeft;
     
     if((relativeX > 0) && (relativeX < cvs.width)){
-        xpad =  relativeX - padLen/2;
+        paddleX =  relativeX - padLength/2;
     }
-    console.log("clientX: " + m.clientX);
-    console.log("cvs.offsetLeft: " + cvs.offsetLeft);
 }
 
-//A function to draw almost everything(Just to be clean)
-function draw(){
+function GameRunning() {
     painter.clearRect(0, 0, cvs.width, cvs.height);
     drawScore();
-    ScoreScored()
+    drawDeadZone();
     BnBCollision();
     BnPCollision();
-    drawDeadZone();
     drawBall();
     drawPad();
     drawBricks();
-    document.getElementById("score").innerHTML = Score;
 }
-//Meh
+/* START THE GAME
+    Check if GameRunning == true
+        false -> return
+        true
+            interval = setIntervall(RunTheGame())
+    
+    RunTheGame()
+        IMPORTANT!!
+        .clearRect(0, 0, cvs.width, cvs.height); Clear the previous frame
+        Paddle();
+            Status
+                Moving
+                    Navigation key pressed/ released
+                    OR Mouse control
+                        take mouse position
+                        add paddle position by paddlespeed every frame until middle of the paddle = mouse position
+                Check Level
+            Appearance
+                According to level
+            Logic
+                Collide with Wall(not going through walls)
+        Ball();
+            Status
+                Speed
+                Check Level
+            Appearance
+                According to level
+            Logic
+                Collide with Wall(not going through walls)
+                touched the bottom -> gamerunning = false and popup losing modal
+        Bricks();
+            Status
+                Check Level
+            Appearance
+                According to level
+            Logic
+                Collide with Wall(not going through walls)
+        Collision();
+            Ball and Paddle Collision()
+                Change direction on colliding
+                Change status
+            Ball and Brick Collision()
+                Change direction on colliding
+                Change Status
+                Add score
+                Combo?
+        Score();
+            display total score
 
+        EXTRA
+            Dead zone
+            display scored score
+            combo multiplying
 
-
-/*Bugs
--Bóng xuyên qua paddle khi paddle di chuyển lên và bóng đang hướng xuống(95% sẽ gặp)
--Bóng xuyên qua paddle khi va chạm 45deg so với paddle(30%)
--Bóng bị dính vào 1 trong 2 bên tường khi bị paddle đẩy vào(30%, xui lắm mới bị)
--Bóng bị dính vào trần, di chuyển đến khi chạm tường mới văng ra được (10%, xui lắm mới bị)
--Nếu biết cách exploit khả năng paddle đi xuyên được qua bricks và cơ chế tính điểm bonus bằng cách va chạm bóng nhiều lần với paddle sẽ có thể lấy được 8-10k điểm đến khi bạn mỏi tay
 */
