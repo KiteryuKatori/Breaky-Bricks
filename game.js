@@ -71,7 +71,7 @@ function drawBricks() {
     for(let c = 0; c < brickCollumn; c++){
         for(let r = 0; r < brickRow; r++){
             if(bricks[c][r].hp > 0){
-                var xbrick = (c*(brickLen + brickPadding)) + brickOffsetLeft;
+                var xbrick = (c*(brickLen + brickPadding)) + brickPadding;
                 var ybrick = (r*(brickHei + brickPadding)) + brickOffsetTop;
                 bricks[c][r].x = xbrick;
                 bricks[c][r].y = ybrick;
@@ -247,6 +247,26 @@ function GameRunning() {
     drawPad();
     drawBricks();
 }
+
+/*
+function Bảo đã đói chưa(){
+    if (Bảo đói rồi){
+        Bảo ăn cơm}
+    
+    else if (Bảo chưa đói nhưng muốn ăn bánh){
+        Bảo ăn bánh}
+    else if (Bảo chưa đói nhưng muốn ăn kẹo){
+        Bảo ăn kẹo}
+    else if (Bảo chưa đói nhưng muốn ăn kem){
+        Bảo ăn kem}
+
+    else{
+        Bảo không đói}
+    
+    Bảo đi ngủ
+}
+*/
+
 /* START THE GAME
     Check if GameRunning == true
         false -> return

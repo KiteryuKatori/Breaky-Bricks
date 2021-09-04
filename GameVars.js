@@ -5,7 +5,6 @@ const painter = cvs.getContext("2d");
 //Game settings:
 var totalScore = 0;
 var GameSpeed = 10;
-var interval = null;
 
 //Responsive
 var RightPressed = false;
@@ -41,12 +40,15 @@ var ballLevel = 1;
 //Bricks Settings:
 var brickRow = 4;
 var brickCollumn = 6;
-var brickLen = 80;
-var brickHei = 25;
+var brickLen = cvs.width/(brickCollumn*1.3);
+var brickHei = brickLen/4;
 var brickOffsetTop = 40;
-var brickOffsetLeft = 30;//offset from walls
-var brickPadding = 15;//Keep the bricks from touching each other
 var brickColorsList = ["#078300", "#00D83B", "#38E859", "#75EB7B", "#9DFF92"];
+
+var gaps = brickCollumn + 1;
+var brickPadding = (cvs.width - (brickLen * brickCollumn))/gaps;
+console.log("Padding: " + brickPadding)
+console.log("BrickLen: " + brickLen)
 
 
 //Others

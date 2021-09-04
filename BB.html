@@ -11,19 +11,21 @@
     <div id = "modal" class = "modal">
         <div class = "modal-header">
             <div class = "title">I'm learning by making Projects</div>
-            <button data-close-button class = "close-button">&times;</button>
+            <button modal-close class = "close-button" id = "pressme">&times;</button>
         </div>
         <div class = "modal-body">
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusamus sit alias dicta cum error perferendis iure fugiat tenetur ullam. Sequi tempore, sapiente architecto, nisi maiores iure ducimus cumque quos temporibus distinctio quo. Nobis soluta cum inventore rerum cere omnis fuga ullam, voluptas nulla culpa?</p>
+            <p>Who the hell are you? Wanna come here to play or what? Get lost! Im testing here.</p>
         </div>
         <div class = "modal-footer">
-            
+            <a class="Pagenav backward">&laquo;</a>
+            <div class="PageDisplay" id="pagedisplay">1/1</div>
+            <a class="Pagenav forward">&raquo;</a>
         </div>
     </div>
 
     <div id = "overlay" class = ""></div>
 
-    <canvas id = "cvs" width = "800px" height="500px"></canvas>
+    <canvas id = "cvs" width = "700px" height="500px"></canvas>
     <br>
     
     <table>
@@ -48,11 +50,10 @@
             <td id = "brickstat">None</td>
         </tr>
     </table>
-    
     <!-- Sripts go here -->
     <script src= "GameVars.js"> </script>
-    <script src= "game.js"> </script>
     <script src= "modal_menu.js"></script>
+    <script src= "game.js"> </script>
     <script src= "main.js"> </script>
 </body>
 </html>

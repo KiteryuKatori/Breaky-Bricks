@@ -49,8 +49,16 @@ table, tr, th, td {
 }
 
 .modal-body {
-    padding: 15px 20px; 
+    height: 50%;
+    padding-top: 25px;
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid black;
 }
+ .modal-footer {
+    display: flex;
+    justify-content: center;
+ }
 
 #overlay {
     position: fixed;
@@ -68,4 +76,17 @@ table, tr, th, td {
 #overlay.activate {
     opacity: 1;
     pointer-events: all;
+}
+
+.Pagenav {
+    margin: 0 25px;
+    margin-top: 3px;
+    width: 10%;
+    height: 25px;
+    font-size: 2em;
+    line-height: 0.6;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+    border: 2px solid #000;
 }

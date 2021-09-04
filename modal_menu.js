@@ -1,20 +1,22 @@
-const activateModal = document.querySelectorAll("[data-modal-target]");
+//const activateModal = document.querySelectorAll("[data-modal-target]");
 
-const deactivateModal = document.querySelectorAll("[data-close-button]");
+const deactivateModal = document.querySelectorAll("[modal-close]");
 
 const overlay = document.getElementById("overlay");
 
-activateModal.forEach(button => {
+/*activateModal.forEach(button => {
     button.addEventListener('click', () => {
         const modal = document.querySelector(button.dataset.modalTarget)
         openModal(modal);
     })
-})
+})*/
 
 deactivateModal.forEach(button => {
     button.addEventListener('click', () => {
         const modal = button.closest('.modal')
         closeModal(modal);
+        interval = setInterval(GameRunning, GameSpeed);
+
     })
 })
 
@@ -22,6 +24,7 @@ overlay.addEventListener("click", () => {
     const modal = document.querySelectorAll('.modal.activate')
     modal.forEach( modal => {
         closeModal(modal);
+        interval = setInterval(GameRunning, GameSpeed);
     })
 })
 
@@ -30,15 +33,19 @@ function openModal(modal) {
     modal.classList.add('activate');
     overlay.classList.add('activate');
 }
+var GameStarted = false;
+console.log("GameStarted status: " + GameStarted);
 
 function closeModal(modal) {
     if (modal == null) return
     modal.classList.remove('activate');
     overlay.classList.remove('activate');
+    GameStarted = true;
     console.log('Did something?');
-    interval = setInterval(GameRunning, GameSpeed);
 }
+
 window.onload =  openModal(modal);
+
 
 /*Modal
     Intro
