@@ -31,12 +31,17 @@ function drawBall() {
         //Losing when missed the ball(Stored in Storing.js)
         else if (ballY >= cvs.height - ballRadius + 1){
             losing();
+            console.log("died");
             document.location.reload();
             clearInterval(interval);
         }
         //Ball fallen into dead zone
-        else if (ballY >= paddleY + padHeight/2){ballInDeadZone = true;}
-        else{ballInDeadZone = false;}
+        else if (ballY >= paddleY + padHeight/2){
+            ballInDeadZone = true;
+        }
+        else{
+            ballInDeadZone = false;
+        }
 }
 
 function drawPad() {
