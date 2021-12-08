@@ -26,8 +26,8 @@ function drawBall() {
             ballHorizontalMovement = -ballHorizontalMovement;
         }else if (ballY <= ballRadius) {//Roof
             ballVerticalMovement = -ballVerticalMovement;
-        }else if (ballY >= cvs.height - ballRadius + 1){//Hitting the Floor
-            ballVerticalMovement = -ballVerticalMovement;}
+        }// else if (ballY >= cvs.height - ballRadius + 1){//Hitting the Floor
+        //     ballVerticalMovement = -ballVerticalMovement;}
         //Losing when missed the ball(Stored in Storing.js)
         else if (ballY >= cvs.height - ballRadius + 1){
             losing();
